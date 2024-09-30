@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
+
 namespace _1l
 {
     internal class Threads
     {
        public void fill(int n)
         {
-
+        
         }
        public static Thread[] create_threads(int n)
         {
