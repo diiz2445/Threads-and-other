@@ -9,22 +9,20 @@ class Program
         //Console.ReadLine();
         int n = 15; // Количество строк
         int m = 15; // Количество столбцов
-
+        int k = 4;
         //1 задание (параллельное заполнение)
-        double[,]matrix = Threads.fill_matrix(n, m);
+        double[,]matrix = Threads.fill_matrix(n, m,k);
         Threads.print_matrix(matrix);
 
         //2 задание (сортировка)
         Console.WriteLine("\nsort\n");
-        double[,] sorted_matrix = Threads.sort(matrix);
+        double[,] sorted_matrix = Threads.sort(matrix,k);
         Threads.print_matrix(sorted_matrix);
 
         //3 задание (множитель)
         Console.WriteLine("\nmulti\n");
-        double[,] muliplied_matrix = Threads.multiply_matrix(matrix);
+        double[,] muliplied_matrix = Threads.multiply_matrix(matrix,k);
         Threads.print_matrix(muliplied_matrix);
-
-        Threads.multiply(matrix);
 
 
 
