@@ -18,19 +18,21 @@ namespace _1l
             return threads;
             
         }
-        public static double[,] fill_matrix(int n,int m)
+        public static double[,] fill_matrix(int n,int m,int k)//k = кол-во потоков
+        
         {
-            Thread[] threads = create_threads(n);
+            Thread[] threads = create_threads(k);
             double[,] matrix = new double[n,m];
             // Запускаем потоки для заполнения строк матрицы
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < k; i++)
             {
+
                 int rowIndex = i; // Локальная переменная для использования в потоке
-                threads[i] = new Thread(() => Fill_Row(matrix, rowIndex, m));
+                threads[i] = new Thread(() => Fill_Row(matrix, rowIndex, m,k));
                 threads[i].Start();
             }
             // Ждем завершения всех потоков
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < k; i++)
             {
                 threads[i].Join();
                 
@@ -48,14 +50,18 @@ namespace _1l
                 Console.WriteLine();
             }
         }
-        static void Fill_Row(double[,] matrix, int rowIndex, int m)//пример заполнения в убывающей последовательности по строкам
+        static void Fill_Row(double[,] matrix, int rowIndex, int m, int k)//заполнениe 
         {
-            for (int j = 0; j < m; j++)
+            while (rowIndex < matrix.GetLength(1))
             {
-                matrix[rowIndex, j] = rowIndex * m + j;
+                for (int j = 0; j < m; j++)
+                {
+                    matrix[rowIndex, j] = rowIndex * m + j;
+                }
+                rowIndex += k;
             }
         }
-        static void Multiply_Row(double[,] matrix, int rowIndex, int m, double k)//пример заполнения в убывающей последовательности по строкам
+        static void Multiply_Row(double[,] matrix, int rowIndex, int m, double k)//
         {
             for (int j = 0; j < m; j++)
             {
@@ -96,7 +102,6 @@ namespace _1l
 
             return sorted_matrix;
         }
-
         public static double[,] multiply_matrix(double[,] matrix)
         {
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();

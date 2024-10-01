@@ -11,7 +11,7 @@ class Program
         int m = 15; // Количество столбцов
 
         //1 задание (параллельное заполнение)
-        double[,]matrix = Threads.fill_matrix(n, m);
+        double[,]matrix = Threads.fill_matrix(n, m,4);
         Threads.print_matrix(matrix);
 
         //2 задание (сортировка)
