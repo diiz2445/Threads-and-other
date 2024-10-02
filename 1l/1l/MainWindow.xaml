@@ -6,7 +6,138 @@
         xmlns:local="clr-namespace:_1l"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid x:Name="MatrGrid">
+        <Grid.RowDefinitions>
+            
+        </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            
+        </Grid.ColumnDefinitions>
+        <Grid><!-- грид заполнения матрицы -->
+             
+            <!-- Определяем строки и столбцы для сетки -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <!-- Первая строка для ввода данных -->
+                <RowDefinition Height="30"/>
+                <!-- Вторая строка для ввода данных -->
+                <RowDefinition Height="30"/>
+                <!-- Третья строка для ввода данных -->
+                <RowDefinition Height="30"/>
+                <!-- Кнопка -->
+                <RowDefinition Height="*"/>
+                <!-- DataGrid -->
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <!-- Метки (Labels) -->
+                <ColumnDefinition Width="*"/>
+                <!-- Поля ввода (TextBoxes) -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Метки для ввода данных -->
+            <TextBlock x:Name="rows"  Text="Rows:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+            <TextBlock x:Name="cols" Text="Columns:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+            <TextBlock x:Name="thrds" Text="Threads:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+
+            <!-- Поля для ввода данных -->
+            <TextBox x:Name="RowsInput" Grid.Row="0" Grid.Column="1" Width="100" Text="10" Padding="5" Height="30"/>
+            <TextBox x:Name="ColumnsInput" Grid.Row="1" Grid.Column="1" Width="100" Text="10" Padding="5" Height="30"/>
+            <TextBox x:Name="ThreadsInput" Grid.Row="2" Grid.Column="1" Width="100" Text="2" Padding="5" Height="30"/>
+
+            <!-- Кнопка для формирования матрицы -->
+            <Button x:Name="GenerateMatrix" Content="Generate Matrix" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" Click="GenerateMatrix_Click"/>
+
+            <!-- DataGrid для отображения матрицы -->
+            <DataGrid x:Name="MatrixDataGrid" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Hidden" AutoGenerateColumns="False"/>
+        </Grid>
+        
+        <Grid Grid.Column="1">
+            <!-- грид сортировки матрицы -->
+
+            <Grid.RowDefinitions>
+                
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="MatrixDataGrid_sorted" Visibility="Hidden" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False"/>
+            
+        </Grid>
+        <Grid Grid.Column="2">
+            <!-- грид умножения матрицы -->
+
+            <!-- Определяем строки и столбцы для сетки -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <!-- Первая строка для ввода данных -->
+                <RowDefinition Height="30"/>
+                <!-- Вторая строка для ввода данных -->
+                <RowDefinition Height="30"/>
+                <!-- Третья строка для ввода данных -->
+                <RowDefinition Height="30"/>
+                <!-- Кнопка -->
+                <RowDefinition Height="*"/>
+                <!-- DataGrid -->
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <!-- Метки (Labels) -->
+                <ColumnDefinition Width="*"/>
+                <!-- Поля ввода (TextBoxes) -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Метки для ввода данных -->
+            <TextBlock x:Name="multiplier" Text="multiplier:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+
+            <!-- Поля для ввода данных -->
+            <TextBox x:Name="Multiply" Grid.Row="2" Grid.Column="1" Width="100" Text="10" Padding="5" Height="30"/>
+
+            <!-- Кнопка для формирования матрицы -->
+            <Button x:Name="multiply_click" Visibility="Hidden" Content="multi" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" Click="multiply_Click"/>
+            <Button x:Name="tree" Click="ToTree" Content="to tree"/>
+            <!-- DataGrid для отображения матрицы -->
+            <DataGrid x:Name="MatrixDataGrid_multi" Visibility="Hidden" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False"/>
+        </Grid>
+        <Grid Grid.Column="1" VerticalAlignment="Top" Height="40">
+            <Button x:Name="HideMatrix" Visibility="Hidden" Click="Hide_Matrix_layer" Height="20" VerticalAlignment="Top"/>
+        </Grid>
+        <Grid x:Name="TreeGrid" Visibility="Hidden"  Grid.Column="1" Margin="0,100,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+        
+            <!-- Поле для ввода строки -->
+            <TextBox x:Name="InputTextBox" Width="400" Height="30" VerticalAlignment="Top" Margin="0,0,0,10"
+              />
+
+            <!-- Кнопка для генерации дерева -->
+            <Button Content="Построить дерево" Width="150" Height="30" VerticalAlignment="Top" 
+            Grid.Row="1" Click="Generate_TreeClick" />
+            
+            <!-- TreeView для отображения бинарного дерева -->
+            <TreeView x:Name="TreeViewControl" Grid.Row="2">
+                <!-- Шаблон для узлов дерева -->
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <!-- Отображение значения узла -->
+                        <TextBlock Text="{Binding D}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Grid>
     </Grid>
+    
 </Window>

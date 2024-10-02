@@ -10,8 +10,7 @@ namespace _1l
 {
     internal class Threads
     {
-       
-       public static Thread[] create_threads(int n)
+        public static Thread[] create_threads(int n)
         {
             // Создаем массив потоков
             Thread[] threads = new Thread[n];
@@ -52,7 +51,7 @@ namespace _1l
         }
         static void Fill_Row(double[,] matrix, int rowIndex, int m, int k)//заполнениe k - кол-во потоков 
         {
-            while (rowIndex < matrix.GetLength(1))
+            while (rowIndex < matrix.GetLength(0))
             {
                 for (int j = 0; j < m; j++)
                 {
@@ -102,13 +101,12 @@ namespace _1l
 
             return sorted_matrix;
         }
-        public static double[,] multiply_matrix(double[,] matrix)
+        public static double[,] multiply_matrix(double[,] matrix,string str_k)
         {
-            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-            
+           
             double[,] multi_matrix = matrix;
-            double k = InputDataWithCheck.InputDoubleWithValidation("ввод множителя: ",int.MinValue,int.MaxValue);//ввод целого значения с валидацией 
-            sw.Start();
+            double.TryParse(str_k,out double k);
+          
             Thread[] threads = create_threads(multi_matrix.GetLength(0));
 
             // Запускаем потоки для заполнения строк матрицы
@@ -125,24 +123,9 @@ namespace _1l
                
             }
             
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds.ToString());
             return multi_matrix;
         }
-        public static double[,] multiply(double[,] matrix)
-        {
-            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-            
-            double[,] multi_matrix = matrix;
-            double k = InputDataWithCheck.InputDoubleWithValidation("ввод множителя: ", int.MinValue, int.MaxValue);//ввод целого значения с валидацией 
-            sw.Start();
-            for (int i = 0; i < multi_matrix.GetLength(0); i++)
-                for (int j = 0; j < multi_matrix.GetLength(1); j++)
-                    multi_matrix[i,j] *= k;
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds.ToString());
-            return multi_matrix;
-        }
+        
 
 
         }
