@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-
+using System.Collections.Generic;
 
 namespace _1l
 {
@@ -18,11 +18,11 @@ namespace _1l
             return threads;
             
         }
-        public static double[,] fill_matrix(int n,int m,int k)//k = кол-во потоков
+        public static T[,] fill_matrix<T>(T[,] matrix,int n,int m,int k)//k = кол-во потоков
         
         {
             Thread[] threads = create_threads(k);
-            double[,] matrix = new double[n,m];
+            //T[,] matrix = new T[n,m];
             // Запускаем потоки для заполнения строк матрицы
             for (int i = 0; i < k; i++)
             {
@@ -50,13 +50,15 @@ namespace _1l
                 Console.WriteLine();
             }
         }
-        static void Fill_Row(double[,] matrix, int rowIndex, int m, int k)//заполнениe строки; k - кол-во потоков 
+        static void Fill_Row<T>(T[,] matrix, int rowIndex, int m, int k)//заполнениe строки; k - кол-во потоков 
         {
             while (rowIndex < matrix.GetLength(1))
             {
+                dynamic[] temp = new dynamic[m];
                 for (int j = 0; j < m; j++)
                 {
-                    matrix[rowIndex, j] = rowIndex * m + j;
+                    temp[j] = rowIndex * m + j;
+                    matrix[rowIndex, j] = temp[j];
                 }
                 rowIndex += k;
             }
@@ -110,7 +112,8 @@ namespace _1l
 
             return sorted_matrix;
         }
-        public static double[,] multiply_matrix(double[,] matrix,int k)//k - кол-во потоков
+
+        public static double[,] multiply_matrix(double[,] matrix,int k)
         {
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             
