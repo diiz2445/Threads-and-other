@@ -52,7 +52,7 @@ namespace _1l
         }
         static void Fill_Row(double[,] matrix, int rowIndex, int m, int k)//заполнениe k - кол-во потоков 
         {
-            while (rowIndex < matrix.GetLength(1))
+            while (rowIndex < matrix.GetLength(0))
             {
                 for (int j = 0; j < m; j++)
                 {

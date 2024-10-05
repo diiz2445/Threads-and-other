@@ -1,15 +1,7 @@
 ﻿using _1l.Core_WPF;
-using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace _1l
 {
@@ -23,7 +15,7 @@ namespace _1l
         private void LoadMatrix()
         {
             // Пример матрицы произвольного размера
-            double[,] matrixData = Threads.fill_matrix(10, 10, 2);
+            double[,] matrixData = Threads.fill_matrix(11, 12, 2);
             var matrixList =MatrixViewModel.ConvertToList(matrixData);
 
             var viewModel = new MatrixViewModel(matrixData);
@@ -31,13 +23,13 @@ namespace _1l
 
             CreateColumns(viewModel.Matrix);
         }
-
-
         private void CreateColumns(List<List<double>> matrix)
         {
             if (matrix.Count==0) return;
 
-            for (int i = 0; i < matrix.Count; i++)
+            MatrixDataGrid.Columns.Clear(); // очищаем предыдущие столбцы, чтобы избежать их дублирования
+
+            for (int i = 0; i < matrix[0].Count; i++) // изменил цикл на количество столбцов
             {
                 var column = new DataGridTextColumn
                 {
