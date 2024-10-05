@@ -108,6 +108,7 @@ namespace _1l
                 int rowIndex = i; // Локальная переменная для использования в потоке
                 threads[i] = new Thread(() => Sort_Row(matrix, rowIndex, matrix.GetLength(1),k));
                 threads[i].Start();
+                threads[i].Join();
             }
 
             return sorted_matrix;
@@ -115,11 +116,11 @@ namespace _1l
 
         public static double[,] multiply_matrix(double[,] matrix,int k)
         {
-            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            //System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             
             double[,] multi_matrix = matrix;
             double c = InputDataWithCheck.InputDoubleWithValidation("ввод множителя: ",int.MinValue,int.MaxValue);//ввод целого значения с валидацией 
-            sw.Start();
+            //sw.Start();
             Thread[] threads = create_threads(k);
 
             // Запускаем потоки для заполнения строк матрицы
@@ -136,24 +137,11 @@ namespace _1l
                
             }
             
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds.ToString());
+            //sw.Stop();
+            //Console.WriteLine(sw.ElapsedMilliseconds.ToString());
             return multi_matrix;
         }
-        public static double[,] multiply(double[,] matrix)
-        {
-            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-            
-            double[,] multi_matrix = matrix;
-            double k = InputDataWithCheck.InputDoubleWithValidation("ввод множителя: ", int.MinValue, int.MaxValue);//ввод целого значения с валидацией 
-            sw.Start();
-            for (int i = 0; i < multi_matrix.GetLength(0); i++)
-                for (int j = 0; j < multi_matrix.GetLength(1); j++)
-                    multi_matrix[i,j] *= k;
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds.ToString());
-            return multi_matrix;
-        }
+        
 
 
         }
