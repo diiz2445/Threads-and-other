@@ -2,15 +2,19 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace _1l
 {
     public partial class MainWindow : Window
     {
+        List<List<double>> matrix;
+
         public MainWindow()
         {
             InitializeComponent();
             LoadMatrix();
+            List<List<double>> matrix;
         }
         private void LoadMatrix()
         {
@@ -38,6 +42,24 @@ namespace _1l
                 MatrixDataGrid.Columns.Add(column);
             }
 
+            MatrixDataGrid.ItemsSource = matrix;
+        }
+        private void GenerateMatrix_Click(object sender, RoutedEventArgs e)
+        {
+            // Получаем значения из полей ввода
+            int rows = int.Parse(RowsInput.Text);       // количество строк
+            int columns = int.Parse(ColumnsInput.Text); // количество столбцов
+            int threads = int.Parse(ThreadsInput.Text); // количество потоков (можно не использовать в примере)
+
+            matrix = new List<List<double>>();
+            matrix = MatrixViewModel.GenerateMatrix(RowsInput.Text, ColumnsInput.Text, ThreadsInput.Text);
+            // Создаем ViewModel
+            //var viewModel = new MatrixViewModel(matrixData);
+            
+            MatrixDataGrid.CanUserAddRows = false; // отключаем возможность добавления новой строки
+            CreateColumns(matrix);
+
+            // Устанавливаем источник данных для DataGrid
             MatrixDataGrid.ItemsSource = matrix;
         }
     }

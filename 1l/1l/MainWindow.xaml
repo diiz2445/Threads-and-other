@@ -7,6 +7,27 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid Name="MatrixDataGrid" AutoGenerateColumns="False" CanUserAddRows = "False" ColumnWidth="*" HorizontalScrollBarVisibility="Auto" />
+        <Grid.RowDefinitions>
+            
+        </Grid.RowDefinitions>
+        
+       
+        <Grid>
+            <!-- Метки для ввода данных -->
+            <TextBlock Text="Rows:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+            <TextBlock Text="Columns:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0"/>
+            <TextBlock Text="Threads:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,70,0,0"/>
+
+            <!-- Поля для ввода данных -->
+            <TextBox x:Name="RowsInput" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,10,0,0" Width="100" Text="10"/>
+            <TextBox x:Name="ColumnsInput" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,40,0,0" Width="100" Text="10"/>
+            <TextBox x:Name="ThreadsInput" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,70,0,0" Width="100" Text="2"/>
+
+            <!-- Кнопка для формирования матрицы -->
+            <Button Content="Generate Matrix" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,100,0,0" Width="170" Click="GenerateMatrix_Click"/>
+
+            <!-- DataGrid для отображения матрицы -->
+            <DataGrid x:Name="MatrixDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,140,10,10" AutoGenerateColumns="False" />
+        </Grid>
     </Grid>
 </Window>

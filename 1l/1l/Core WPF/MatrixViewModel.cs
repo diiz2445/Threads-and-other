@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace _1l.Core_WPF
 {
@@ -14,7 +15,6 @@ namespace _1l.Core_WPF
     public class MatrixViewModel
     {
         public List<List<double>> Matrix { get; set; } // Список списков для хранения матрицы
-
         public MatrixViewModel(double[,] matrixData)
         {
             // Инициализация списка списков для хранения строк матрицы
@@ -47,6 +47,22 @@ namespace _1l.Core_WPF
                 result.Add(row);
             }
             return result;
+        }
+        public static List<List<double>> GenerateMatrix(string row,string col,string thread)
+        {
+            // Получаем значения из полей ввода
+            int rows; int.TryParse(row, out rows);       // количество строк
+            int columns; int.TryParse(col, out columns); // количество столбцов
+            int threads; int.TryParse(thread, out threads); // количество потоков (можно не использовать в примере)
+
+            // Генерируем матрицу с полученными параметрами
+            double[,] matrixData = Threads.fill_matrix(rows, columns, threads);
+
+            // Преобразуем матрицу в список для отображения
+            return(MatrixViewModel.ConvertToList(matrixData));
+
+            
+            
         }
     }
 }

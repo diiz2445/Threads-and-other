@@ -10,8 +10,8 @@ namespace _1l
 {
     internal class Threads
     {
-       
-       public static Thread[] create_threads(int n)
+        Thread[] threads;
+        public static Thread[] create_threads(int n)
         {
             // Создаем массив потоков
             Thread[] threads = new Thread[n];
