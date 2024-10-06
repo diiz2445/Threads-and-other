@@ -10,24 +10,104 @@
         <Grid.RowDefinitions>
             
         </Grid.RowDefinitions>
-        
-       
-        <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            
+        </Grid.ColumnDefinitions>
+        <Grid><!-- грид заполнения матрицы -->
+             
+            <!-- Определяем строки и столбцы для сетки -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <!-- Первая строка для ввода данных -->
+                <RowDefinition Height="30"/>
+                <!-- Вторая строка для ввода данных -->
+                <RowDefinition Height="30"/>
+                <!-- Третья строка для ввода данных -->
+                <RowDefinition Height="30"/>
+                <!-- Кнопка -->
+                <RowDefinition Height="*"/>
+                <!-- DataGrid -->
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <!-- Метки (Labels) -->
+                <ColumnDefinition Width="*"/>
+                <!-- Поля ввода (TextBoxes) -->
+            </Grid.ColumnDefinitions>
+
             <!-- Метки для ввода данных -->
-            <TextBlock Text="Rows:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
-            <TextBlock Text="Columns:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0"/>
-            <TextBlock Text="Threads:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,70,0,0"/>
+            <TextBlock Text="Rows:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+            <TextBlock Text="Columns:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+            <TextBlock Text="Threads:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
 
             <!-- Поля для ввода данных -->
-            <TextBox x:Name="RowsInput" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,10,0,0" Width="100" Text="10"/>
-            <TextBox x:Name="ColumnsInput" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,40,0,0" Width="100" Text="10"/>
-            <TextBox x:Name="ThreadsInput" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,70,0,0" Width="100" Text="2"/>
+            <TextBox x:Name="RowsInput" Grid.Row="0" Grid.Column="1" Width="100" Text="10" Padding="5" Height="30"/>
+            <TextBox x:Name="ColumnsInput" Grid.Row="1" Grid.Column="1" Width="100" Text="10" Padding="5" Height="30"/>
+            <TextBox x:Name="ThreadsInput" Grid.Row="2" Grid.Column="1" Width="100" Text="2" Padding="5" Height="30"/>
 
             <!-- Кнопка для формирования матрицы -->
-            <Button Content="Generate Matrix" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,100,0,0" Width="170" Click="GenerateMatrix_Click"/>
+            <Button Content="Generate Matrix" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" Click="GenerateMatrix_Click"/>
 
             <!-- DataGrid для отображения матрицы -->
-            <DataGrid x:Name="MatrixDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,140,10,10" AutoGenerateColumns="False" />
+            <DataGrid x:Name="MatrixDataGrid" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Hidden" AutoGenerateColumns="False"/>
+        </Grid>
+        
+        <Grid Grid.Column="1">
+            <!-- грид сортировки матрицы -->
+
+            <Grid.RowDefinitions>
+                
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="MatrixDataGrid_sorted" Visibility="Hidden" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False"/>
+            
+        </Grid>
+        <Grid Grid.Column="2">
+            <!-- грид умножения матрицы -->
+
+            <!-- Определяем строки и столбцы для сетки -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <!-- Первая строка для ввода данных -->
+                <RowDefinition Height="30"/>
+                <!-- Вторая строка для ввода данных -->
+                <RowDefinition Height="30"/>
+                <!-- Третья строка для ввода данных -->
+                <RowDefinition Height="30"/>
+                <!-- Кнопка -->
+                <RowDefinition Height="*"/>
+                <!-- DataGrid -->
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <!-- Метки (Labels) -->
+                <ColumnDefinition Width="*"/>
+                <!-- Поля ввода (TextBoxes) -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Метки для ввода данных -->
+            <TextBlock Text="multiplier:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+
+            <!-- Поля для ввода данных -->
+            <TextBox x:Name="Multiply" Grid.Row="2" Grid.Column="1" Width="100" Text="10" Padding="5" Height="30"/>
+
+            <!-- Кнопка для формирования матрицы -->
+            <Button Content="multi" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" Click="multiply_Click"/>
+
+            <!-- DataGrid для отображения матрицы -->
+            <DataGrid x:Name="MatrixDataGrid_multi" Visibility="Hidden" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False"/>
         </Grid>
     </Grid>
 </Window>

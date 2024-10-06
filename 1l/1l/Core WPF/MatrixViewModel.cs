@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -50,6 +51,10 @@ namespace _1l.Core_WPF
         }
         public static List<List<double>> GenerateMatrix(string row,string col,string thread)
         {
+            return(MatrixViewModel.ConvertToList(GetDoubleMatrix(row, col, thread)));
+        }
+        public static double[,] GetDoubleMatrix(string row, string col, string thread)
+        {
             // Получаем значения из полей ввода
             int rows; int.TryParse(row, out rows);       // количество строк
             int columns; int.TryParse(col, out columns); // количество столбцов
@@ -57,12 +62,27 @@ namespace _1l.Core_WPF
 
             // Генерируем матрицу с полученными параметрами
             double[,] matrixData = Threads.fill_matrix(rows, columns, threads);
-
-            // Преобразуем матрицу в список для отображения
-            return(MatrixViewModel.ConvertToList(matrixData));
-
-            
-            
+            return matrixData;
         }
+
+        public static double[,] multiply(string row,string col, string thread,string k)
+        {
+            double[,] matrixData = GetDoubleMatrix(row, col, thread);
+            matrixData = Threads.multiply_matrix(matrixData,k);
+            return matrixData;
+
+        }
+        public static List<List<double>> multiply_list(string row, string col, string thread, string k)
+        {
+            return ConvertToList(multiply(row, col, thread, k));
+        }
+        public static List<List<double>> multiply_list(double[,]matrix,string k)
+        {
+            double[,] matrix_temp = Threads.multiply_matrix(matrix,k);
+            return ConvertToList(matrix_temp);
+        }
+
+
+
     }
 }

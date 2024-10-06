@@ -10,7 +10,6 @@ namespace _1l
 {
     internal class Threads
     {
-        Thread[] threads;
         public static Thread[] create_threads(int n)
         {
             // Создаем массив потоков
@@ -102,12 +101,14 @@ namespace _1l
 
             return sorted_matrix;
         }
-        public static double[,] multiply_matrix(double[,] matrix)
+        public static double[,] multiply_matrix(double[,] matrix,string str_k)
         {
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             
             double[,] multi_matrix = matrix;
-            double k = InputDataWithCheck.InputDoubleWithValidation("ввод множителя: ",int.MinValue,int.MaxValue);//ввод целого значения с валидацией 
+            double k;
+            double.TryParse(str_k,out k);
+                //InputDataWithCheck.InputDoubleWithValidation("ввод множителя: ",int.MinValue,int.MaxValue);//ввод целого значения с валидацией 
             sw.Start();
             Thread[] threads = create_threads(multi_matrix.GetLength(0));
 
@@ -129,20 +130,7 @@ namespace _1l
             Console.WriteLine(sw.ElapsedMilliseconds.ToString());
             return multi_matrix;
         }
-        public static double[,] multiply(double[,] matrix)
-        {
-            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-            
-            double[,] multi_matrix = matrix;
-            double k = InputDataWithCheck.InputDoubleWithValidation("ввод множителя: ", int.MinValue, int.MaxValue);//ввод целого значения с валидацией 
-            sw.Start();
-            for (int i = 0; i < multi_matrix.GetLength(0); i++)
-                for (int j = 0; j < multi_matrix.GetLength(1); j++)
-                    multi_matrix[i,j] *= k;
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds.ToString());
-            return multi_matrix;
-        }
+        
 
 
         }
