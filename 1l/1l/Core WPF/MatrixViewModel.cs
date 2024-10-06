@@ -81,6 +81,18 @@ namespace _1l.Core_WPF
             double[,] matrix_temp = Threads.multiply_matrix(matrix,k);
             return ConvertToList(matrix_temp);
         }
+        public static List<List<double>> sorted_list(string row, string col, string thread)
+        {
+            double[,] matr_sort = sorted(row, col, thread);
+            List<List<double>> sorted_list = ConvertToList(matr_sort);
+            return sorted_list;
+        }
+        public static double[,] sorted(string row, string col, string thread)
+        {
+
+            double[,] matr_sort = Threads.sort(GetDoubleMatrix(row,col,thread));
+            return matr_sort;
+        }
 
 
 

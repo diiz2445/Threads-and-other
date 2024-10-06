@@ -81,10 +81,11 @@ namespace _1l
            
             MatrixDataGrid.CanUserAddRows = false; // отключаем возможность добавления новой строки
             CreateColumns(matrix_list);
-
+            CreateColumns_sort(matrix_list);
             MatrixDataGrid.ItemsSource = matrix_list;
-            MatrixDataGrid_sorted.ItemsSource= MatrixViewModel.multiply_list(RowsInput.Text, ColumnsInput.Text, ThreadsInput.Text,Multiply.Text);
+            MatrixDataGrid_sorted.ItemsSource= MatrixViewModel.sorted_list(RowsInput.Text, ColumnsInput.Text, ThreadsInput.Text);
             MatrixDataGrid.Visibility = Visibility.Visible;
+            MatrixDataGrid_sorted.Visibility = Visibility.Visible;
         }
 
         private void multiply_Click(object sender, RoutedEventArgs e)
