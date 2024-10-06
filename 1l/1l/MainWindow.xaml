@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:_1l"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid x:Name="MatrGrid">
         <Grid.RowDefinitions>
             
         </Grid.RowDefinitions>
@@ -41,9 +41,9 @@
             </Grid.ColumnDefinitions>
 
             <!-- Метки для ввода данных -->
-            <TextBlock Text="Rows:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
-            <TextBlock Text="Columns:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
-            <TextBlock Text="Threads:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+            <TextBlock x:Name="rows"  Text="Rows:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+            <TextBlock x:Name="cols" Text="Columns:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+            <TextBlock x:Name="thrds" Text="Threads:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
 
             <!-- Поля для ввода данных -->
             <TextBox x:Name="RowsInput" Grid.Row="0" Grid.Column="1" Width="100" Text="10" Padding="5" Height="30"/>
@@ -51,7 +51,7 @@
             <TextBox x:Name="ThreadsInput" Grid.Row="2" Grid.Column="1" Width="100" Text="2" Padding="5" Height="30"/>
 
             <!-- Кнопка для формирования матрицы -->
-            <Button Content="Generate Matrix" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" Click="GenerateMatrix_Click"/>
+            <Button x:Name="GenerateMatrix" Content="Generate Matrix" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" Click="GenerateMatrix_Click"/>
 
             <!-- DataGrid для отображения матрицы -->
             <DataGrid x:Name="MatrixDataGrid" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Hidden" AutoGenerateColumns="False"/>
@@ -98,16 +98,20 @@
             </Grid.ColumnDefinitions>
 
             <!-- Метки для ввода данных -->
-            <TextBlock Text="multiplier:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+            <TextBlock x:Name="multiplier" Text="multiplier:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
 
             <!-- Поля для ввода данных -->
             <TextBox x:Name="Multiply" Grid.Row="2" Grid.Column="1" Width="100" Text="10" Padding="5" Height="30"/>
 
             <!-- Кнопка для формирования матрицы -->
-            <Button Content="multi" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" Click="multiply_Click"/>
+            <Button x:Name="multiply_click" Content="multi" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" Click="multiply_Click"/>
 
             <!-- DataGrid для отображения матрицы -->
             <DataGrid x:Name="MatrixDataGrid_multi" Visibility="Hidden" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False"/>
         </Grid>
+        <Grid Grid.Column="1" VerticalAlignment="Top" Height="20">
+            <Button x:Name="HideMatrix" Click="Hide_Matrix_layer"/>
+        </Grid>
     </Grid>
+    
 </Window>

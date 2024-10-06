@@ -10,6 +10,7 @@ namespace _1l
     {
         List<List<double>> matrix_list;
         double[,] matrix;
+        string Visibility_Matrix="Visible";
         public MainWindow()
         {
             InitializeComponent();
@@ -97,8 +98,48 @@ namespace _1l
             MatrixDataGrid_multi.Visibility = Visibility.Visible;
 
         }
-        
-        
+
+        private void Hide_Matrix_layer(object sender, RoutedEventArgs e)
+        {
+            if (Visibility_Matrix == "Visible")
+            {
+                Visibility_Matrix = "Hidden";
+                HideMatrix.Content = "Show Matrix Layer";
+                RowsInput.Visibility = Visibility.Hidden;
+                ColumnsInput.Visibility = Visibility.Hidden;
+                ThreadsInput.Visibility = Visibility.Hidden;
+                MatrixDataGrid.Visibility = Visibility.Hidden;
+                GenerateMatrix.Visibility = Visibility.Hidden;
+                MatrixDataGrid_multi.Visibility = Visibility.Hidden;
+                MatrixDataGrid_sorted.Visibility = Visibility.Hidden;
+                rows.Visibility = Visibility.Hidden;
+                cols.Visibility = Visibility.Hidden;
+                thrds.Visibility = Visibility.Hidden;
+                multiplier.Visibility = Visibility.Hidden;
+                Multiply.Visibility = Visibility.Hidden;
+                multiply_click.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                Visibility_Matrix = "Visible";
+                HideMatrix.Content = "Hide Matrix Layer";
+
+                RowsInput.Visibility = Visibility.Visible;
+                ColumnsInput.Visibility = Visibility.Visible;
+                ThreadsInput.Visibility = Visibility.Visible;
+                MatrixDataGrid.Visibility = Visibility.Visible;
+                GenerateMatrix.Visibility = Visibility.Visible;
+                MatrixDataGrid_multi.Visibility = Visibility.Visible;
+                MatrixDataGrid_sorted.Visibility = Visibility.Visible;
+                rows.Visibility = Visibility.Visible;
+                cols.Visibility = Visibility.Visible;
+                thrds.Visibility = Visibility.Visible;
+                multiplier.Visibility = Visibility.Visible;
+                Multiply.Visibility = Visibility.Visible;
+                multiply_click.Visibility = Visibility.Visible;
+            }
+
+        }
         
     }
 }

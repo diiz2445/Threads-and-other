@@ -103,13 +103,10 @@ namespace _1l
         }
         public static double[,] multiply_matrix(double[,] matrix,string str_k)
         {
-            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-            
+           
             double[,] multi_matrix = matrix;
-            double k;
-            double.TryParse(str_k,out k);
-                //InputDataWithCheck.InputDoubleWithValidation("ввод множителя: ",int.MinValue,int.MaxValue);//ввод целого значения с валидацией 
-            sw.Start();
+            double.TryParse(str_k,out double k);
+          
             Thread[] threads = create_threads(multi_matrix.GetLength(0));
 
             // Запускаем потоки для заполнения строк матрицы
@@ -126,8 +123,6 @@ namespace _1l
                
             }
             
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds.ToString());
             return multi_matrix;
         }
         
