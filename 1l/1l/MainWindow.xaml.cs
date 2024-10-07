@@ -12,6 +12,9 @@ namespace _1l
         List<List<double>> matrix_list;
         double[,] matrix;
         public Tree RootTree { get; set; }
+        int TreeCount=0;
+        double TreeSum = 0;
+
         string Visibility_Matrix = "Visible";
         string Visibility_Tree = "Hidden";
         public MainWindow()
@@ -82,7 +85,7 @@ namespace _1l
             int rows = int.Parse(RowsInput.Text);       // количество строк
             int columns = int.Parse(ColumnsInput.Text); // количество столбцов
             int threads = int.Parse(ThreadsInput.Text); // количество потоков (можно не использовать в примере)
-
+            multiply_click.Visibility = Visibility.Visible;
             matrix_list = new List<List<double>>();
             matrix = Threads.fill_matrix(rows, columns, threads);
             matrix_list = MatrixViewModel.GenerateMatrix(RowsInput.Text, ColumnsInput.Text, ThreadsInput.Text);
@@ -95,7 +98,6 @@ namespace _1l
             MatrixDataGrid.Visibility = Visibility.Visible;
             MatrixDataGrid_sorted.Visibility = Visibility.Visible;
         }
-
         private void multiply_Click(object sender, RoutedEventArgs e)
         {
             MatrixDataGrid.CanUserAddRows = false; // отключаем возможность добавления новой строки
@@ -105,7 +107,6 @@ namespace _1l
             MatrixDataGrid_multi.Visibility = Visibility.Visible;
 
         }
-
         private void Generate_TreeClick(object sender, RoutedEventArgs e)
         {
             string input = InputTextBox.Text;
@@ -130,6 +131,11 @@ namespace _1l
             {
                 MessageBox.Show($"Ошибка при построении дерева: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            TreeSum=Tree.Sum(RootTree);
+            TreeCount=Tree.Count(RootTree);
+            Sum.Text= TreeSum.ToString();
+            double average = TreeCount > 0 ? TreeSum / TreeCount : 0;
+            Avg.Text = average.ToString();
         }
         private void Hide_Matrix_layer(object sender, RoutedEventArgs e)
         {
@@ -141,58 +147,20 @@ namespace _1l
                 tree.Visibility = Visibility.Visible;
                 TreeGrid.Visibility = Visibility.Hidden;
 
-                RowsInput.Visibility = Visibility.Visible;
-                ColumnsInput.Visibility = Visibility.Visible;
-                ThreadsInput.Visibility = Visibility.Visible;
-                MatrixDataGrid.Visibility = Visibility.Visible;
-                GenerateMatrix.Visibility = Visibility.Visible;
-                MatrixDataGrid_multi.Visibility = Visibility.Visible;
-                MatrixDataGrid_sorted.Visibility = Visibility.Visible;
-                rows.Visibility = Visibility.Visible;
-                cols.Visibility = Visibility.Visible;
-                thrds.Visibility = Visibility.Visible;
-                multiplier.Visibility = Visibility.Visible;
-                Multiply.Visibility = Visibility.Visible;
-                multiply_click.Visibility = Visibility.Visible;
-
+                MatrixGrid.Visibility = Visibility.Visible;
 
             }
         }
-
-
         private void Hide_Matrix_layer()
         {
-            if (Visibility_Matrix == "Visible")
-            {
+            
                 Visibility_Matrix = "Hidden";
                 HideMatrix.Visibility = Visibility.Visible;
                 HideMatrix.Content = "Show Matrix Layer";
 
-                RowsInput.Visibility = Visibility.Hidden;
-                ColumnsInput.Visibility = Visibility.Hidden;
-                ThreadsInput.Visibility = Visibility.Hidden;
-                MatrixDataGrid.Visibility = Visibility.Hidden;
-                GenerateMatrix.Visibility = Visibility.Hidden;
-                MatrixDataGrid_multi.Visibility = Visibility.Hidden;
-                MatrixDataGrid_sorted.Visibility = Visibility.Hidden;
-                rows.Visibility = Visibility.Hidden;
-                cols.Visibility = Visibility.Hidden;
-                thrds.Visibility = Visibility.Hidden;
-                multiplier.Visibility = Visibility.Hidden;
-                Multiply.Visibility = Visibility.Hidden;
-                multiply_click.Visibility = Visibility.Hidden;
+                MatrixGrid.Visibility = Visibility.Hidden;
 
-
-            }
-            else
-            {
-                Visibility_Matrix = "Visible";
-                Visibility_Tree = "Hidden";
-                HideMatrix.Visibility = Visibility.Hidden;
-                tree.Visibility = Visibility.Visible;
-            }
         }
-
         private void OnGenerateTreeClick(object sender, RoutedEventArgs e)
         {
             string input = InputTextBox.Text;
@@ -218,11 +186,9 @@ namespace _1l
                 MessageBox.Show($"Ошибка при построении дерева: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        private void ToTree(object sender, RoutedEventArgs e)
+        private void ToTree(object sender, RoutedEventArgs e)//кнопка перехода к слою с деревьями
         {
-            if (Visibility_Tree == "Hidden")
-            {
-                
+            
                 Hide_Matrix_layer();
                 Visibility_Tree = "Visible";
                 Visibility_Matrix = "Hidden";
@@ -232,14 +198,16 @@ namespace _1l
                 TreeViewControl.Items.Clear();
                 TreeViewControl.Items.Add(RootTree); // Добавляем корневой элемент
                 TreeGrid.Visibility = Visibility.Visible;
-            }
-            else 
-            {
-                Hide_Matrix_layer();
-                Visibility_Tree = "Hidden";
-                tree.Visibility = Visibility.Visible;
-                TreeGrid.Visibility = Visibility.Visible;
-            }
+            
+            
         }
+        private void HideTree()
+        {
+            tree.Visibility= Visibility.Visible;//показать кнопку к слою с деревьями
+            TreeGrid.Visibility = Visibility.Hidden;//скрыть слой с деревьями
+            Visibility_Tree = "Hidden";
+            
+        }
+
     }
 }
