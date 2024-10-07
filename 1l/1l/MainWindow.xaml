@@ -113,9 +113,11 @@
             
         </Grid>
         <StackPanel Orientation="Horizontal" x:Name="grid_to" Grid.Column="1" VerticalAlignment="Bottom" Height="40">
-            <Button x:Name="HideMatrix" Visibility="Hidden" Click="Hide_Matrix_layer" MinWidth="40"/>
+            <Button x:Name="HideMatrix" Visibility="Hidden" Click="ToMatrix" MinWidth="40"/>
             <Button x:Name="tree" Click="ToTree" Content="to tree" MinWidth="40"/>
-            <Button x:Name="t"/>
+            <Button x:Name="Circles" Click="ToCircles" MinWidth="40"/>
+            <Button x:Name="Texts" Click="ToTexts" MinWidth="40"/>
+
         </StackPanel>
         <Grid x:Name="TreeGrid" Visibility="Hidden"  Grid.Column="1" Margin="0,100,0,40">
             <Grid.RowDefinitions>
@@ -149,6 +151,12 @@
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
+            
+        </Grid>
+        <Grid x:Name="CirclesGrid" Visibility="Visible" Margin="0,0,0,40">
+            
+        </Grid>
+        <Grid x:Name="TextsGrid" Visibility="Visible" Margin="0,0,0,40">
             
         </Grid>
     </Grid>

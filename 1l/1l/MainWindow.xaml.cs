@@ -17,12 +17,12 @@ namespace _1l
 
         string Visibility_Matrix = "Visible";
         string Visibility_Tree = "Hidden";
+        string Visibility_Circles = "Hidden";
+        string Visibility_Texts = "Hidden";
         public MainWindow()
         {
             InitializeComponent();
             List<List<double>> matrix;
-            string input = "10 5 15 3 7 12 18";
-
             
             DataContext = this;
 
@@ -137,14 +137,19 @@ namespace _1l
             double average = TreeCount > 0 ? TreeSum / TreeCount : 0;
             Avg.Text = average.ToString();
         }
-        private void Hide_Matrix_layer(object sender, RoutedEventArgs e)
+        private void ToMatrix(object sender, RoutedEventArgs e)
         {
             {
-
+                HideTexts_Layer();
+                HideCircles_Layer();
+                HideTree_Layer();
                 Visibility_Matrix = "Visible";
                 Visibility_Tree = "Hidden";
+                Visibility_Circles = "Hidden";
+                Visibility_Texts = "Hidden";
                 HideMatrix.Visibility = Visibility.Hidden;
                 tree.Visibility = Visibility.Visible;
+                Circles.Visibility = Visibility.Visible;
                 TreeGrid.Visibility = Visibility.Hidden;
 
                 MatrixGrid.Visibility = Visibility.Visible;
@@ -188,20 +193,18 @@ namespace _1l
         }
         private void ToTree(object sender, RoutedEventArgs e)//кнопка перехода к слою с деревьями
         {
-            
+                HideTexts_Layer();
+                HideCircles_Layer();
                 Hide_Matrix_layer();
                 Visibility_Tree = "Visible";
-                Visibility_Matrix = "Hidden";
                 tree.Visibility = Visibility.Hidden;
-
-                // Привязываем дерево к TreeView
                 TreeViewControl.Items.Clear();
                 TreeViewControl.Items.Add(RootTree); // Добавляем корневой элемент
                 TreeGrid.Visibility = Visibility.Visible;
             
             
         }
-        private void HideTree()
+        private void HideTree_Layer()
         {
             tree.Visibility= Visibility.Visible;//показать кнопку к слою с деревьями
             TreeGrid.Visibility = Visibility.Hidden;//скрыть слой с деревьями
@@ -209,5 +212,33 @@ namespace _1l
             
         }
 
+        private void ToCircles(object sender, RoutedEventArgs e)
+        {
+            HideTree_Layer();
+            Hide_Matrix_layer();
+            HideTexts_Layer();
+            Visibility_Circles = "Visible";
+            Circles.Visibility = Visibility.Hidden;
+        }
+        private void HideCircles_Layer()
+        {
+            CirclesGrid.Visibility = Visibility.Hidden;
+            Visibility_Circles = "Hidden";
+            Circles.Visibility= Visibility.Visible;
+        }
+        private void ToTexts(object sender, RoutedEventArgs e)
+        {
+            Hide_Matrix_layer();
+            HideCircles_Layer();
+            HideTree_Layer();
+            Visibility_Texts = "Visible";
+            Texts.Visibility = Visibility.Hidden;
+        }
+        private void HideTexts_Layer()
+        {
+            TextsGrid.Visibility = Visibility.Hidden;
+            Visibility_Texts = "Hidden";
+            Texts.Visibility= Visibility.Visible;
+        }
     }
 }
