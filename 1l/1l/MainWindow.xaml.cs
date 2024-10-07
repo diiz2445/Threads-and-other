@@ -1,4 +1,5 @@
 ﻿using _1l.Core_WPF;
+using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -132,13 +133,6 @@ namespace _1l
         }
         private void Hide_Matrix_layer(object sender, RoutedEventArgs e)
         {
-            if (Visibility_Matrix == "Visible")
-            {
-                Visibility_Matrix = "Hidden";
-                HideMatrix.Visibility = Visibility.Visible;
-                HideMatrix.Content = "Show Matrix Layer";
-            }
-            else
             {
 
                 Visibility_Matrix = "Visible";
@@ -164,7 +158,9 @@ namespace _1l
 
             }
         }
-            private void Hide_Matrix_layer()
+
+
+        private void Hide_Matrix_layer()
         {
             if (Visibility_Matrix == "Visible")
             {
@@ -194,31 +190,56 @@ namespace _1l
                 Visibility_Tree = "Hidden";
                 HideMatrix.Visibility = Visibility.Hidden;
                 tree.Visibility = Visibility.Visible;
-
             }
-
         }
 
+        private void OnGenerateTreeClick(object sender, RoutedEventArgs e)
+        {
+            string input = InputTextBox.Text;
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                MessageBox.Show("Введите корректную строку с элементами дерева!", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Создаем дерево на основе строки
+            TreeBuilder treeBuilder = new TreeBuilder();
+            try
+            {
+                RootTree = treeBuilder.BuildTreeFromString(input);
+
+                // Привязываем дерево к TreeView
+                TreeViewControl.Items.Clear();
+                TreeViewControl.Items.Add(RootTree); // Добавляем корневой элемент
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при построении дерева: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void ToTree(object sender, RoutedEventArgs e)
         {
             if (Visibility_Tree == "Hidden")
             {
+                
                 Hide_Matrix_layer();
                 Visibility_Tree = "Visible";
                 Visibility_Matrix = "Hidden";
                 tree.Visibility = Visibility.Hidden;
 
+                // Привязываем дерево к TreeView
+                TreeViewControl.Items.Clear();
+                TreeViewControl.Items.Add(RootTree); // Добавляем корневой элемент
                 TreeGrid.Visibility = Visibility.Visible;
             }
-            else
+            else 
             {
                 Hide_Matrix_layer();
                 Visibility_Tree = "Hidden";
-
                 tree.Visibility = Visibility.Visible;
                 TreeGrid.Visibility = Visibility.Visible;
             }
         }
-
     }
 }
