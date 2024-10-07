@@ -104,29 +104,29 @@
             <TextBox x:Name="Multiply" Grid.Row="2" Grid.Column="1" Width="100" Text="10" Padding="5" Height="30"/>
 
             <!-- Кнопка для формирования матрицы -->
-            <Button x:Name="multiply_click" Content="multi" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" Click="multiply_Click"/>
-
+            <Button x:Name="multiply_click" Visibility="Hidden" Content="multi" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" Click="multiply_Click"/>
+            <Button x:Name="tree" Click="ToTree" Content="to tree"/>
             <!-- DataGrid для отображения матрицы -->
             <DataGrid x:Name="MatrixDataGrid_multi" Visibility="Hidden" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False"/>
         </Grid>
         <Grid Grid.Column="1" VerticalAlignment="Top" Height="40">
-            <Button x:Name="HideMatrix" Click="Hide_Matrix_layer" Height="20" VerticalAlignment="Top"/>
+            <Button x:Name="HideMatrix" Visibility="Hidden" Click="Hide_Matrix_layer" Height="20" VerticalAlignment="Top"/>
         </Grid>
-        <Grid  Grid.Column="1">
+        <Grid x:Name="TreeGrid" Visibility="Hidden"  Grid.Column="1" Margin="0,100,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-
+        
             <!-- Поле для ввода строки -->
             <TextBox x:Name="InputTextBox" Width="400" Height="30" VerticalAlignment="Top" Margin="0,0,0,10"
               />
 
             <!-- Кнопка для генерации дерева -->
             <Button Content="Построить дерево" Width="150" Height="30" VerticalAlignment="Top" 
-            Grid.Row="1" Click="OnGenerateTreeClick" />
-
+            Grid.Row="1" Click="Generate_TreeClick" />
+            
             <!-- TreeView для отображения бинарного дерева -->
             <TreeView x:Name="TreeViewControl" Grid.Row="2">
                 <!-- Шаблон для узлов дерева -->
