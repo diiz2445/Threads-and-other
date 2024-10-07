@@ -10,12 +10,18 @@ namespace _1l
     {
         List<List<double>> matrix_list;
         double[,] matrix;
+        public Tree RootTree { get; set; }
         string Visibility_Matrix="Visible";
+
         public MainWindow()
         {
             InitializeComponent();
             List<List<double>> matrix;
-            MatrixDataGrid.Visibility = Visibility.Hidden;
+            string input = "10 5 15 3 7 12 18";
+
+            
+            DataContext = this;
+
         }
         private void CreateColumns(List<List<double>> matrix)
         {
@@ -140,6 +146,31 @@ namespace _1l
             }
 
         }
-        
+
+        private void OnGenerateTreeClick(object sender, RoutedEventArgs e)
+        {
+            string input = InputTextBox.Text;
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                MessageBox.Show("Введите корректную строку с элементами дерева!", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Создаем дерево на основе строки
+            TreeBuilder treeBuilder = new TreeBuilder();
+            try
+            {
+                RootTree = treeBuilder.BuildTreeFromString(input);
+
+                // Привязываем дерево к TreeView
+                TreeViewControl.Items.Clear();
+                TreeViewControl.Items.Add(RootTree); // Добавляем корневой элемент
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при построении дерева: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

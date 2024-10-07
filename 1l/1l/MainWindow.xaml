@@ -109,8 +109,34 @@
             <!-- DataGrid для отображения матрицы -->
             <DataGrid x:Name="MatrixDataGrid_multi" Visibility="Hidden" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False"/>
         </Grid>
-        <Grid Grid.Column="1" VerticalAlignment="Top" Height="20">
-            <Button x:Name="HideMatrix" Click="Hide_Matrix_layer"/>
+        <Grid Grid.Column="1" VerticalAlignment="Top" Height="40">
+            <Button x:Name="HideMatrix" Click="Hide_Matrix_layer" Height="20" VerticalAlignment="Top"/>
+        </Grid>
+        <Grid  Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Поле для ввода строки -->
+            <TextBox x:Name="InputTextBox" Width="400" Height="30" VerticalAlignment="Top" Margin="0,0,0,10"
+              />
+
+            <!-- Кнопка для генерации дерева -->
+            <Button Content="Построить дерево" Width="150" Height="30" VerticalAlignment="Top" 
+            Grid.Row="1" Click="OnGenerateTreeClick" />
+
+            <!-- TreeView для отображения бинарного дерева -->
+            <TreeView x:Name="TreeViewControl" Grid.Row="2">
+                <!-- Шаблон для узлов дерева -->
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <!-- Отображение значения узла -->
+                        <TextBlock Text="{Binding D}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
         </Grid>
     </Grid>
     

@@ -6,21 +6,40 @@ using System.Threading.Tasks;
 
 namespace _1l.Core_WPF
 {
-    internal class TreeViewModel
-    {
-        Tree tree;
-        public void Generate_Tree(string str_elements)
-        {
-            //int.TryParse(str_count_element, out int count);
-            string[] array_str_elements = str_elements.Split(' ');
-            double[] doubles = new double[array_str_elements.Length];
-            int i = 0;
-            foreach (string str_element in array_str_elements)
-            {
-                double.TryParse(str_element, out doubles[i]);
-                i++;
-            }
 
+
+    public class TreeBuilder
+    {
+        // Метод для вставки узла в бинарное дерево
+        public Tree Insert(Tree node, double value)
+        {
+            if (node == null)
+            {
+                return new Tree(value);
+            }
+            if (value < node.D)
+            {
+                node.Left = Insert(node.Left, value);
+            }
+            else
+            {
+                node.Right = Insert(node.Right, value);
+            }
+            return node;
+        }
+
+        // Создание дерева на основе строки
+        public Tree BuildTreeFromString(string input)
+        {
+            var values = input.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
+                              .Select(double.Parse).ToArray();
+
+            Tree root = null;
+            foreach (var value in values)
+            {
+                root = Insert(root, value);
+            }
+            return root;
         }
     }
 }
