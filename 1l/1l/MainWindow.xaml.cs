@@ -1,5 +1,6 @@
 ﻿using _1l.Core_WPF;
 using System.Reflection.Emit;
+using System.Security.Cryptography.Xml;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -137,7 +138,7 @@ namespace _1l
             double average = TreeCount > 0 ? TreeSum / TreeCount : 0;
             Avg.Text = average.ToString();
         }
-        private void ToMatrix(object sender, RoutedEventArgs e)
+        private void ToMatrix(object sender, RoutedEventArgs e)//переход к слою с матрицами
         {
             {
                 HideTexts_Layer();
@@ -156,13 +157,11 @@ namespace _1l
 
             }
         }
-        private void Hide_Matrix_layer()
+        private void Hide_Matrix_layer()//сокрытие слоя матриц
         {
             
                 Visibility_Matrix = "Hidden";
                 HideMatrix.Visibility = Visibility.Visible;
-                HideMatrix.Content = "Show Matrix Layer";
-
                 MatrixGrid.Visibility = Visibility.Hidden;
 
         }
@@ -204,7 +203,7 @@ namespace _1l
             
             
         }
-        private void HideTree_Layer()
+        private void HideTree_Layer()//сокрытие слоя с деревьями
         {
             tree.Visibility= Visibility.Visible;//показать кнопку к слою с деревьями
             TreeGrid.Visibility = Visibility.Hidden;//скрыть слой с деревьями
@@ -212,7 +211,7 @@ namespace _1l
             
         }
 
-        private void ToCircles(object sender, RoutedEventArgs e)
+        private void ToCircles(object sender, RoutedEventArgs e)//переход к слою с кружками
         {
             HideTree_Layer();
             Hide_Matrix_layer();
@@ -220,25 +219,36 @@ namespace _1l
             Visibility_Circles = "Visible";
             Circles.Visibility = Visibility.Hidden;
         }
-        private void HideCircles_Layer()
+        private void HideCircles_Layer()//сокрытие слоя с кружками
         {
             CirclesGrid.Visibility = Visibility.Hidden;
             Visibility_Circles = "Hidden";
             Circles.Visibility= Visibility.Visible;
         }
-        private void ToTexts(object sender, RoutedEventArgs e)
+        private void ToTexts(object sender, RoutedEventArgs e)//переход к слою с текстами
         {
             Hide_Matrix_layer();
             HideCircles_Layer();
             HideTree_Layer();
             Visibility_Texts = "Visible";
             Texts.Visibility = Visibility.Hidden;
+            TextsGrid.Visibility = Visibility.Visible;
         }
-        private void HideTexts_Layer()
+        private void HideTexts_Layer()//сокрытие слоя с текстовыми заданиями
         {
             TextsGrid.Visibility = Visibility.Hidden;
             Visibility_Texts = "Hidden";
             Texts.Visibility= Visibility.Visible;
         }
+
+        private void Show_Crypto(object sender, RoutedEventArgs e)
+        {
+            encrypted.Text = TextsViewModel.ShowEncrypted(TextRow.Text,TextKey.Text);
+        }
+        private void Show_Decrypted(object sender, RoutedEventArgs e)
+        {
+            Decrypted.Text = TextsViewModel.ShowDecrypted(encrypted.Text, TextKey.Text);
+        }
+
     }
 }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid x:Name="MatrixGrid">
+        <Grid x:Name="MatrixGrid" Visibility="Visible">
             <Grid.RowDefinitions>
             
             </Grid.RowDefinitions>
@@ -112,11 +112,11 @@
             
             
         </Grid>
-        <StackPanel Orientation="Horizontal" x:Name="grid_to" Grid.Column="1" VerticalAlignment="Bottom" Height="40">
-            <Button x:Name="HideMatrix" Visibility="Hidden" Click="ToMatrix" MinWidth="40"/>
-            <Button x:Name="tree" Click="ToTree" Content="to tree" MinWidth="40"/>
-            <Button x:Name="Circles" Click="ToCircles" MinWidth="40"/>
-            <Button x:Name="Texts" Click="ToTexts" MinWidth="40"/>
+        <StackPanel Orientation="Horizontal" x:Name="grid_to" Grid.Column="1" VerticalAlignment="Bottom" Height="40" >
+            <Button x:Name="HideMatrix" Visibility="Hidden" Click="ToMatrix" Content="To Matrix" MinWidth="40" Padding="10"/>
+            <Button x:Name="tree" Click="ToTree" Content="To tree" MinWidth="40" Padding="10"/>
+            <Button x:Name="Circles" Click="ToCircles" Content="To Circles"  MinWidth="40" Padding="10"/>
+            <Button x:Name="Texts" Click="ToTexts" Content="To Texts" MinWidth="40" Padding="10"/>
 
         </StackPanel>
         <Grid x:Name="TreeGrid" Visibility="Hidden"  Grid.Column="1" Margin="0,100,0,40">
@@ -156,8 +156,48 @@
         <Grid x:Name="CirclesGrid" Visibility="Visible" Margin="0,0,0,40">
             
         </Grid>
-        <Grid x:Name="TextsGrid" Visibility="Visible" Margin="0,0,0,40">
-            
+        <Grid x:Name="TextsGrid" Visibility="Hidden" Margin="0,0,0,40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <!-- Первая строка для ввода данных -->
+                    <RowDefinition Height="30"/>
+                    <!-- Вторая строка для ввода данных -->
+                    <RowDefinition Height="30"/>
+                    <!-- Третья строка для ввода данных -->
+                    <RowDefinition Height="30"/>
+                    <!-- Кнопка -->
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+
+                    <!-- DataGrid -->
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Метки (Labels) -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- Поля ввода (TextBoxes) -->
+                </Grid.ColumnDefinitions>
+                <TextBlock  Text="Row:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+                <TextBlock  Text="Key:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+                <TextBlock  Text="Encrypted:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+                <TextBlock  Text="Decrypted:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+
+                <!-- Поля для ввода данных -->
+                <TextBox x:Name="TextRow" Grid.Row="0" Grid.Column="1" Width="100" Padding="5" Height="30" Text="HelloWorld"/>
+                <TextBox x:Name="TextKey" Grid.Row="1" Grid.Column="1" Width="100" Padding="5" Height="30" Text="Key"/>
+                <TextBox x:Name="encrypted" Grid.Row="2" Grid.Column="1" Width="100" Padding="5" Height="30"/>
+                <TextBox x:Name="Decrypted" Grid.Row="3" Grid.Column="1" Width="100" Padding="5" Height="30"/>
+
+                <Button Click="Show_Crypto" Grid.Row="4" Grid.ColumnSpan="2" Content="encrypt"/>
+                <Button Click="Show_Decrypted" Grid.Row="5" Grid.ColumnSpan="2" Content="decrypt"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
