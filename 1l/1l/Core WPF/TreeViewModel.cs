@@ -31,9 +31,7 @@ namespace _1l.Core_WPF
         // Создание дерева на основе строки
         public Tree BuildTreeFromString(string input)
         {
-            var values = input.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
-                              .Select(double.Parse).ToArray();
-
+            var values = input.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToArray();
             Tree root = null;
             foreach (var value in values)
             {
