@@ -15,7 +15,7 @@ namespace _1l
         public Tree RootTree { get; set; }
         int TreeCount=0;
         double TreeSum = 0;
-
+        
         string Visibility_Matrix = "Visible";
         string Visibility_Tree = "Hidden";
         string Visibility_Circles = "Hidden";
@@ -112,17 +112,17 @@ namespace _1l
         {
             string input = InputTextBox.Text;
 
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                MessageBox.Show("Введите корректную строку с элементами дерева!", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+            //if (string.IsNullOrWhiteSpace(input))
+            //{
+            //    MessageBox.Show("Введите корректную строку с элементами дерева!", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //    return;
+            //}
 
             // Создаем дерево на основе строки
             TreeBuilder treeBuilder = new TreeBuilder();
             try
             {
-                RootTree = treeBuilder.BuildTreeFromString(input);
+                RootTree = treeBuilder.BuildTreeFromString();
 
                 // Привязываем дерево к TreeView
                 TreeViewControl.Items.Clear();
@@ -169,17 +169,17 @@ namespace _1l
         {
             string input = InputTextBox.Text;
 
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                MessageBox.Show("Введите корректную строку с элементами дерева!", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+            //if (string.IsNullOrWhiteSpace(input))
+            //{
+            //    MessageBox.Show("Введите корректную строку с элементами дерева!", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //    return;
+            //}
 
             // Создаем дерево на основе строки
             TreeBuilder treeBuilder = new TreeBuilder();
             try
             {
-                RootTree = treeBuilder.BuildTreeFromString(input);
+                RootTree = treeBuilder.BuildTreeFromString();
 
                 // Привязываем дерево к TreeView
                 TreeViewControl.Items.Clear();
@@ -247,7 +247,7 @@ namespace _1l
         }
         private void Show_Decrypted(object sender, RoutedEventArgs e)
         {
-            Decrypted.Text = TextsViewModel.ShowDecrypted(encrypted.Text, TextKey.Text);
+            Decrypted.Text = TextsViewModel.ShowDecrypted(encrypted.Text, KeyDecrypt.Text);
         }
 
     }

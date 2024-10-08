@@ -29,13 +29,16 @@ namespace _1l.Core_WPF
         }
 
         // Создание дерева на основе строки
-        public Tree BuildTreeFromString(string input)
+        public Tree BuildTreeFromString()
         {
-            var values = input.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
-                              .Select(double.Parse).ToArray();
-
+            //var values = input.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
+            //                  .Select(double.Parse).ToArray();
+            Random rnd = new Random();
+            double[] ArrayInt = new double[1000];
+            for(int i=0;i<1000;i++)
+                ArrayInt[i] = double.Round(rnd.NextDouble()*10,2);
             Tree root = null;
-            foreach (var value in values)
+            foreach (var value in ArrayInt)
             {
                 root = Insert(root, value);
             }
