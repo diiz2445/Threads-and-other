@@ -1,0 +1,206 @@
+﻿<Window x:Class="_1l.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_1l"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid x:Name="MatrixGrid" Visibility="Visible">
+            <Grid.RowDefinitions>
+            
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            
+            </Grid.ColumnDefinitions>
+            <Grid><!-- грид заполнения матрицы -->
+             
+                <!-- Определяем строки и столбцы для сетки -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <!-- Первая строка для ввода данных -->
+                    <RowDefinition Height="30"/>
+                    <!-- Вторая строка для ввода данных -->
+                    <RowDefinition Height="30"/>
+                    <!-- Третья строка для ввода данных -->
+                    <RowDefinition Height="30"/>
+                    <!-- Кнопка -->
+                    <RowDefinition Height="*"/>
+                    <!-- DataGrid -->
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Метки (Labels) -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- Поля ввода (TextBoxes) -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Метки для ввода данных -->
+                <TextBlock x:Name="rows"  Text="Rows:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+                <TextBlock x:Name="cols" Text="Columns:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+                <TextBlock x:Name="thrds" Text="Threads:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+
+                <!-- Поля для ввода данных -->
+                <TextBox x:Name="RowsInput" Grid.Row="0" Grid.Column="1" Width="100" Text="10" Padding="5" Height="30"/>
+                <TextBox x:Name="ColumnsInput" Grid.Row="1" Grid.Column="1" Width="100" Text="10" Padding="5" Height="30"/>
+                <TextBox x:Name="ThreadsInput" Grid.Row="2" Grid.Column="1" Width="100" Text="2" Padding="5" Height="30"/>
+
+                <!-- Кнопка для формирования матрицы -->
+                <Button x:Name="GenerateMatrix" Content="Generate Matrix" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" Click="GenerateMatrix_Click"/>
+
+                <!-- DataGrid для отображения матрицы -->
+                <DataGrid x:Name="MatrixDataGrid" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Hidden" AutoGenerateColumns="False" Margin="0,0,0,40"/>
+            </Grid>
+        
+            <Grid Grid.Column="1">
+                <!-- грид сортировки матрицы -->
+
+                <Grid.RowDefinitions>
+                
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="MatrixDataGrid_sorted" Visibility="Hidden" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False"/>
+            
+            </Grid>
+            <Grid Grid.Column="2">
+                <!-- грид умножения матрицы -->
+
+                <!-- Определяем строки и столбцы для сетки -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <!-- Первая строка для ввода данных -->
+                    <RowDefinition Height="30"/>
+                    <!-- Вторая строка для ввода данных -->
+                    <RowDefinition Height="30"/>
+                    <!-- Третья строка для ввода данных -->
+                    <RowDefinition Height="30"/>
+                    <!-- Кнопка -->
+                    <RowDefinition Height="*"/>
+                    <!-- DataGrid -->
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Метки (Labels) -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- Поля ввода (TextBoxes) -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Метки для ввода данных -->
+                <TextBlock x:Name="multiplier" Text="multiplier:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+
+                <!-- Поля для ввода данных -->
+                <TextBox x:Name="Multiply" Grid.Row="2" Grid.Column="1" Width="100" Text="10" Padding="5" Height="30"/>
+
+                <!-- Кнопка для формирования матрицы -->
+                <Button x:Name="multiply_click" Visibility="Hidden" Content="multi" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" Click="multiply_Click"/>
+                <!-- DataGrid для отображения матрицы -->
+                <DataGrid x:Name="MatrixDataGrid_multi" Visibility="Hidden" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False"/>
+            </Grid>
+            
+            
+        </Grid>
+        <StackPanel Orientation="Horizontal" x:Name="grid_to" Grid.Column="1" VerticalAlignment="Bottom" Height="40" >
+            <Button x:Name="HideMatrix" Visibility="Hidden" Click="ToMatrix" Content="To Matrix" MinWidth="40" Padding="10"/>
+            <Button x:Name="tree" Click="ToTree" Content="To tree" MinWidth="40" Padding="10"/>
+            <Button x:Name="Circles" Click="ToCircles" Content="To Circles"  MinWidth="40" Padding="10"/>
+            <Button x:Name="Texts" Click="ToTexts" Content="To Texts" MinWidth="40" Padding="10"/>
+
+        </StackPanel>
+        <Grid x:Name="TreeGrid" Visibility="Hidden"  Grid.Column="1" Margin="0,100,0,40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="1" Text="sum:" VerticalAlignment="Center"/>
+            <TextBox x:Name="Sum" Grid.Column="1" Width="100"/>
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="Average:" VerticalAlignment="Center"/>
+            <TextBox x:Name="Avg" Grid.Row="1" Grid.Column="1" Width="100"/>
+            <!-- Поле для ввода строки -->
+            <TextBox x:Name="InputTextBox" Grid.Column="0" Width="400" Height="30" VerticalAlignment="Top" Margin="0,0,0,10"/>
+
+            <!-- Кнопка для генерации дерева -->
+            <Button Content="Построить дерево" Width="150" Height="30" VerticalAlignment="Top" Grid.Row="1" Click="Generate_TreeClick" />
+            
+            <!-- TreeView для отображения бинарного дерева -->
+            <TreeView x:Name="TreeViewControl" Grid.Row="2">
+                <!-- Шаблон для узлов дерева -->
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <!-- Отображение значения узла -->
+                        <TextBlock Text="{Binding D}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            
+        </Grid>
+        <Grid x:Name="CirclesGrid" Visibility="Visible" Margin="0,0,0,40">
+            
+        </Grid>
+        <Grid x:Name="TextsGrid" Visibility="Hidden" Margin="0,0,0,40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <!-- Первая строка для ввода данных -->
+                    <RowDefinition Height="30"/>
+                    <!-- Вторая строка для ввода данных -->
+                    <RowDefinition Height="30"/>
+                    <!-- Третья строка для ввода данных -->
+                    <RowDefinition Height="30"/>
+                    <!-- Кнопка -->
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+
+                    <!-- DataGrid -->
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Метки (Labels) -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- Поля ввода (TextBoxes) -->
+                </Grid.ColumnDefinitions>
+                <TextBlock  Text="Row:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+                <TextBlock  Text="Key:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+                <TextBlock  Text="Encrypted:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+                <TextBlock  Text="Decrypted:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+                <TextBlock  Text="Decrypt key:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Height="30"/>
+
+                <!-- Поля для ввода данных -->
+                <TextBox x:Name="TextRow" Grid.Row="0" Grid.Column="1" Width="100" Padding="5" Height="30" Text="HelloWorld"/>
+                <TextBox x:Name="TextKey" Grid.Row="1" Grid.Column="1" Width="100" Padding="5" Height="30" Text="Key"/>
+                <TextBox x:Name="encrypted" Grid.Row="3" Grid.Column="1" Width="100" Padding="5" Height="30"/>
+                <TextBox x:Name="Decrypted" Grid.Row="4" Grid.Column="1" Width="100" Padding="5" Height="30"/>
+                <TextBox x:Name="KeyDecrypt" Grid.Row="2" Grid.Column="1" Width="100" Padding="5" Height="30"/>
+
+                <Button Click="Show_Crypto" Grid.Row="5" Grid.ColumnSpan="2" Content="encrypt"/>
+                <Button Click="Show_Decrypted" Grid.Row="6" Grid.ColumnSpan="2" Content="decrypt"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
