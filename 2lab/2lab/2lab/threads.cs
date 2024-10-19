@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
+namespace _2lab
 
-namespace _1l
+
 {
     internal class Threads
     {
@@ -38,6 +39,28 @@ namespace _1l
             }
             return matrix;
         }
+        public static double[,] fill_matrix_rand(int n, int m, int k)//k = кол-во потоков
+
+        {
+            Thread[] threads = create_threads(k);
+            double[,] matrix = new double[n, m];
+            // Запускаем потоки для заполнения строк матрицы
+            for (int i = 0; i < k; i++)
+            {
+
+                int rowIndex = i; // Локальная переменная для использования в потоке
+                threads[i] = new Thread(() => Fill_Row_rand(matrix, rowIndex, m, k));
+                threads[i].Start();
+            }
+            // Ждем завершения всех потоков
+            for (int i = 0; i < k; i++)
+            {
+                threads[i].Join();
+
+            }
+            return matrix;
+        }
+
         public static void print_matrix(double[,] matrix)
         {
             for (int i = 0; i < matrix.GetLength(0); i++)
@@ -56,6 +79,18 @@ namespace _1l
                 for (int j = 0; j < m; j++)
                 {
                     matrix[rowIndex, j] = rowIndex * m + j;
+                }
+                rowIndex += k;
+            }
+        }
+        static void Fill_Row_rand(double[,] matrix, int rowIndex, int m, int k)//заполнениe k - кол-во потоков 
+        {
+            Random random = new Random();
+            while (rowIndex < matrix.GetLength(0))
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    matrix[rowIndex, j] = random.Next(100,1000)/1000.2;
                 }
                 rowIndex += k;
             }
