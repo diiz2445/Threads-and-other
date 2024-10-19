@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Net.Sockets;
 
 namespace _2lab
 
@@ -123,6 +124,7 @@ namespace _2lab
                 matrix[rowIndex, j] = row[j];
             }
         }
+        
         public static double[,] sort(double[,] matrix)//сортировка строк по возрастанию 
         {
             double[,] sorted_matrix = matrix;
@@ -160,8 +162,43 @@ namespace _2lab
             
             return multi_matrix;
         }
-        
+        static void Sum_rows(double[,] matrix, double[] sum_str, int rowIndex, int m)
+        {
+            double sum = 0;
+            object locker = new object();
+            // Вычисляем сумму элементов строки
+            for (int j = 0; j < m; j++)
+            {
+                sum += matrix[rowIndex, j];
+            }
 
-
+            // Блокируем доступ к массиву sums и добавляем частичную сумму
+            lock (locker)
+            {
+                sum_str[rowIndex] = sum;
+            }
         }
+        public static double[] Sum(double[,] matrix)
+        {
+            double[] sums = new double[matrix.GetLength(0)];
+            Thread[] threads = new Thread[matrix.GetLength(0)];
+
+            // Запускаем потоки для суммирования строк
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                int rowIndex = i;  // Локальная переменная для использования в потоке
+                threads[i] = new Thread(() => Sum_rows(matrix, sums, rowIndex, matrix.GetLength(1)));
+                threads[i].Start();
+            }
+
+            // Ожидаем завершения всех потоков
+            foreach (Thread thread in threads)
+            {
+                thread.Join();
+            }
+
+            return sums;
+        }
+
     }
+}
