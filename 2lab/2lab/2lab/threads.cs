@@ -123,6 +123,7 @@ namespace _2lab
                 matrix[rowIndex, j] = row[j];
             }
         }
+        
         public static double[,] sort(double[,] matrix)//сортировка строк по возрастанию 
         {
             double[,] sorted_matrix = matrix;
@@ -160,8 +161,36 @@ namespace _2lab
             
             return multi_matrix;
         }
-        
+        static void Sum_rows(double[,] matrix,double[] sum_str, int rowIndex, int m)
+        {
+            double sum = 0;
+            lock (matrix)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    sum_str[rowIndex] += matrix[rowIndex, j];
+                }
+            }
+             
 
 
         }
+        public static double[] Sum(double[,] matrix)//сортировка строк по возрастанию 
+        {
+            object obj = new object();
+            lock (obj)
+            {
+                double[] sums = new double[matrix.GetLength(0)];
+                Thread[] threads = Threads.create_threads(matrix.GetLength(0));
+                for (int i = 0; i < matrix.GetLength(0); i++)
+                {
+                    int rowIndex = i; // Локальная переменная для использования в потоке
+                    threads[i] = new Thread(() => Sum_rows(matrix, sums, rowIndex, matrix.GetLength(1)));
+                    threads[i].Start();
+                }
+                return sums;
+            }
+        }
+
     }
+}
