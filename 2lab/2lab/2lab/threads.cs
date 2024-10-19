@@ -165,7 +165,7 @@ namespace _2lab
         static void Sum_rows(double[,] matrix, double[] sum_str, int rowIndex, int m)
         {
             double sum = 0;
-            object locker = new object();
+            object locker = new object();  // Объект для синхронизации доступа к массиву sums
             // Вычисляем сумму элементов строки
             for (int j = 0; j < m; j++)
             {
@@ -178,6 +178,8 @@ namespace _2lab
                 sum_str[rowIndex] = sum;
             }
         }
+
+        // Функция для создания потоков и суммирования строк матрицы
         public static double[] Sum(double[,] matrix)
         {
             double[] sums = new double[matrix.GetLength(0)];
@@ -201,12 +203,13 @@ namespace _2lab
         }
         static void Control_sum_one_thread(string text, ref int sum, int step, int currentThread)
         {
-            int partialSum = 0;
             object locker = new object();
+            int partialSum = 0;
+
             // Рассчитываем частичную сумму для данной части текста
             for (int i = currentThread; i < text.Length; i += step)
             {
-                partialSum += (int)text[i];  // Добавляем код символа к частичной сумме
+                partialSum += (int)text[i];// Добавляем код символа к частичной сумме
             }
 
             // Блокируем доступ к общей сумме и добавляем частичную сумму
@@ -215,7 +218,9 @@ namespace _2lab
                 sum += partialSum;
             }
         }
-        public static int Control_sum(string str, int k)
+
+        public static int Control_sum(string str, int k)// Функция для запуска потоков и вычисления общей контрольной суммы
+
         {
             int sum = 0;
             Thread[] threads = new Thread[k];
@@ -223,13 +228,9 @@ namespace _2lab
             // Запускаем потоки
             for (int i = 0; i < k; i++)
             {
-                try
-                {
-                    int threadIndex = i;  // Локальная переменная для использования в потоке
-                    threads[i] = new Thread(() => Control_sum_one_thread(str, ref sum, k, threadIndex));
-                    threads[i].Start();
-                }
-                catch (Exception e) { }
+                int threadIndex = i;  // Локальная переменная для использования в потоке
+                threads[i] = new Thread(() => Control_sum_one_thread(str, ref sum, k, threadIndex));
+                threads[i].Start();
             }
 
             // Ожидаем завершение всех потоков
@@ -240,5 +241,6 @@ namespace _2lab
 
             return sum % 256;  // Контрольная сумма по модулю 256
         }
+
     }
 }
