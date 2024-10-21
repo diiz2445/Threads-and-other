@@ -199,6 +199,42 @@ namespace _2lab
 
             return sums;
         }
+        static void Control_sum_one_thread(string text, ref int sum, int step, int currentThread)
+        {
+            int partialSum = 0;
+            object locker = new object();
+            // Рассчитываем частичную сумму для данной части текста
+            for (int i = currentThread; i < text.Length; i += step)
+            {
+                partialSum += (int)text[i];  // Добавляем код символа к частичной сумме
+            }
 
+            // Блокируем доступ к общей сумме и добавляем частичную сумму
+            lock (locker)
+            {
+                sum += partialSum;
+            }
+        }
+        public static int Control_sum(string str, int k)
+        {
+            int sum = 0;
+            Thread[] threads = new Thread[k];
+
+            // Запускаем потоки
+            for (int i = 0; i < k; i++)
+            {
+                int threadIndex = i;  // Локальная переменная для использования в потоке
+                threads[i] = new Thread(() => Control_sum_one_thread(str, ref sum, k, threadIndex));
+                threads[i].Start();
+            }
+
+            // Ожидаем завершение всех потоков
+            foreach (Thread thread in threads)
+            {
+                thread.Join();
+            }
+
+            return sum % 256;  // Контрольная сумма по модулю 256
+        }
     }
 }
