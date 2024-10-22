@@ -68,7 +68,7 @@ namespace _2lab
             {
                 for (int j = 0; j < matrix.GetLength(1); j++)
                 {
-                    Console.Write(Math.Round(matrix[i, j],2) + "\t");
+                    Console.Write(matrix[i, j] + "\t");
                 }
                 Console.WriteLine();
             }
@@ -91,7 +91,7 @@ namespace _2lab
             {
                 for (int j = 0; j < m; j++)
                 {
-                    matrix[rowIndex, j] = random.Next(100,1000)/1000.2;
+                    matrix[rowIndex, j] =double.Round(random.Next(100,1000)/1000.0,6);
                 }
                 rowIndex += k;
             }
@@ -223,9 +223,13 @@ namespace _2lab
             // Запускаем потоки
             for (int i = 0; i < k; i++)
             {
-                int threadIndex = i;  // Локальная переменная для использования в потоке
-                threads[i] = new Thread(() => Control_sum_one_thread(str, ref sum, k, threadIndex));
-                threads[i].Start();
+                try
+                {
+                    int threadIndex = i;  // Локальная переменная для использования в потоке
+                    threads[i] = new Thread(() => Control_sum_one_thread(str, ref sum, k, threadIndex));
+                    threads[i].Start();
+                }
+                catch (Exception e) { }
             }
 
             // Ожидаем завершение всех потоков

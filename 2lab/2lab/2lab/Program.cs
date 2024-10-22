@@ -7,14 +7,15 @@
             double[,] matrix = Threads.fill_matrix_rand(3, 4, 3);
             Threads.print_matrix(matrix);
 
-            Console.WriteLine("\nsums:");
+            Console.Write("\nsums:\n ");
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                Console.Write(double.Round(Threads.Sum(matrix)[i],2)+" | ");
+                Console.Write((Threads.Sum(matrix))[i]+" | ");
             }
-            string text = "ABCDE";  // Тестовый текст
+            Console.Write("\n\nвведите строку: ");
+            string text = Console.ReadLine();  // Тестовый текст
             int checksum = Threads.Control_sum(text, 4);  // Запуск вычисления контрольной суммы с 4 потоками
-            Console.WriteLine($"\n\nПодана строка: {text}\nМногопоточная контрольная сумма: {checksum}");
+            Console.WriteLine($"\nПодана строка: {text}\nМногопоточная контрольная сумма: {checksum}");
         }
     }
 }
