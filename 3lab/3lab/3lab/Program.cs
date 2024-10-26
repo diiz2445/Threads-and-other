@@ -4,6 +4,25 @@
     {
         private static void Main(string[] args)
         {
+            VectorOperations vectorOperations = new VectorOperations();
+
+            Console.WriteLine("Введите пары векторов в формате 'number number':");
+            List<string> inputVectors = new List<string>
+            {
+                "1 2 3 4 5 6",
+                "2 3 4 5 6 7",
+                "4 5 6 7 8"
+            };
+
+            // Вызов метода для обработки векторов и получения результатов
+            double[] results = vectorOperations.ProcessVectors(inputVectors);
+
+            // Вывод результатов в консоль
+            vectorOperations.PrintResults(results);
+
+
+
+
             string mutexName = "Global\\MyNamedMutex"; // Имя мьютекса
 
             // Открытие или создание мьютекса по имени
