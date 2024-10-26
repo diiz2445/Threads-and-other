@@ -17,6 +17,17 @@
             string text = "ABCDE";
             Console.WriteLine(Threads.Control_sum(text,3));
 
+
+            double a = 0.0;      // Начало отрезка
+            double b = Math.PI;  // Конец отрезка
+            int n = 10;          // Количество частей, на которые делим отрезок [a, b]
+            int m = 100;         // Количество подотрезков внутри каждого элемента для метода прямоугольников
+            for (int i = 0; i < n; i++)
+            {
+                TrapezoidArea.Calculate(a, b, n, m);
+                b++;
+            }
+
         }
     }
 }
