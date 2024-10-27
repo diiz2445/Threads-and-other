@@ -20,10 +20,13 @@
             // Вывод результатов в консоль
             vectorOperations.PrintResults(results);
 
+            //реализация работы HashTable
+            HashTable.Run();
 
 
-
-            string mutexName = "Global\\MyNamedMutex"; // Имя мьютекса
+            //реализация работы 2 приложений с одним мьютексом
+            {
+                string mutexName = "Global\\MyNamedMutex"; // Имя мьютекса
 
             // Открытие или создание мьютекса по имени
             using (Mutex mutex = new Mutex(false, mutexName, out bool createdNew))
@@ -49,8 +52,10 @@
                 mutex.ReleaseMutex();
             }
 
-            Console.WriteLine("Завершено.");
-
+                Console.WriteLine("Завершено.");
+}
+            
+            
             Console.ReadKey();
 
         }
