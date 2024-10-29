@@ -43,6 +43,33 @@ namespace _3lab
 
             return results;
         }
+        public static double ScalarProduct()
+        {
+            
+            
+            Console.WriteLine("введите первый вектор вида 'value value'");
+            string vector1 = Console.ReadLine();
+            Console.WriteLine("введите второй вектор вида 'value value'");
+            string vector2 = Console.ReadLine();
+            // Преобразуем строки в массивы целых чисел
+            double[] vec1 = vector1.Split(' ').Select(double.Parse).ToArray();
+            double[] vec2 = vector2.Split(' ').Select(double.Parse).ToArray();
+
+            // Проверка на совпадение размеров векторов
+            if (vec1.Length != vec2.Length)
+            {
+                throw new ArgumentException("Векторы должны быть одинаковой длины.");
+            }
+
+            // Вычисляем скалярное произведение
+            double result = 0;
+            for (int i = 0; i < vec1.Length; i++)
+            {
+                result += vec1[i] * vec2[i];
+            }
+            Console.WriteLine("скалярное произвдение = " + double.Round(result, 4));
+            return result;
+        }
 
         // Метод для вывода значений
         public void PrintResults(double[] results)
