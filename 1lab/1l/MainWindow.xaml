@@ -112,7 +112,7 @@
             
             
         </Grid>
-        <StackPanel Orientation="Horizontal" x:Name="grid_to" Grid.Column="1" VerticalAlignment="Bottom" Height="40" >
+        <StackPanel x:Name="Layer_panel" Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Bottom" Height="40" >
             <Button x:Name="HideMatrix" Visibility="Hidden" Click="ToMatrix" Content="To Matrix" MinWidth="40" Padding="10"/>
             <Button x:Name="tree" Click="ToTree" Content="To tree" MinWidth="40" Padding="10"/>
             <Button x:Name="Circles" Click="ToCircles" Content="To Circles"  MinWidth="40" Padding="10"/>
@@ -153,8 +153,50 @@
             </TreeView>
             
         </Grid>
-        <Grid x:Name="CirclesGrid" Visibility="Visible" Margin="0,0,0,40">
-            
+        <Grid x:Name="CirclesGrid" Visibility="Hidden" Margin="0,0,0,40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Выберите приоритет:" Margin="10" FontWeight="Bold" />
+
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <TextBlock Text="Красный:" VerticalAlignment="Center" />
+                        <ComboBox SelectionChanged="RedPriority_SelectionChanged" Margin="5,0,0,0">
+                            <ComboBoxItem Content="Высокий" Tag="Highest" />
+                            <ComboBoxItem Content="Нормальный" Tag="Normal" />
+                            <ComboBoxItem Content="Низкий" Tag="Lowest" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <TextBlock Text="Синий:" VerticalAlignment="Center" />
+                        <ComboBox SelectionChanged="BluePriority_SelectionChanged" Margin="5,0,0,0">
+                            <ComboBoxItem Content="Высокий" Tag="Highest" />
+                            <ComboBoxItem Content="Нормальный" Tag="Normal" />
+                            <ComboBoxItem Content="Низкий" Tag="Lowest" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <TextBlock Text="Зелёный:" VerticalAlignment="Center" />
+                        <ComboBox SelectionChanged="GreenPriority_SelectionChanged" Margin="5,0,0,0">
+                            <ComboBoxItem Content="Высокий" Tag="Highest" />
+                            <ComboBoxItem Content="Нормальный" Tag="Normal" />
+                            <ComboBoxItem Content="Низкий" Tag="Lowest" />
+                        </ComboBox>
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+            <Canvas Grid.Column="1" Name="MainCanvas" Background="White"/>
         </Grid>
         <Grid x:Name="TextsGrid" Visibility="Hidden" Margin="0,0,0,40">
             <Grid.ColumnDefinitions>

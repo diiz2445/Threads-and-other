@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace _1l
 {
@@ -12,10 +13,15 @@ namespace _1l
     {
         List<List<double>> matrix_list;
         double[,] matrix;
+
         public Tree RootTree { get; set; }
         int TreeCount=0;
         double TreeSum = 0;
-        
+
+        private ThreadPriority redPriority = ThreadPriority.Highest;
+        private ThreadPriority bluePriority = ThreadPriority.Normal;
+        private ThreadPriority greenPriority = ThreadPriority.Lowest;
+
         string Visibility_Matrix = "Visible";
         string Visibility_Tree = "Hidden";
         string Visibility_Circles = "Hidden";
@@ -24,7 +30,9 @@ namespace _1l
         {
             InitializeComponent();
             List<List<double>> matrix;
-            
+            CreateCircles();
+
+
             DataContext = this;
 
         }
@@ -194,6 +202,7 @@ namespace _1l
             HideTexts_Layer();
             Visibility_Circles = "Visible";
             Circles.Visibility = Visibility.Hidden;
+            CirclesGrid.Visibility = Visibility.Visible;
         }
         private void HideCircles_Layer()//сокрытие слоя с кружками
         {
@@ -224,6 +233,75 @@ namespace _1l
         private void Show_Decrypted(object sender, RoutedEventArgs e)
         {
             Decrypted.Text = TextsViewModel.ShowDecrypted(encrypted.Text, KeyDecrypt.Text);
+        }
+
+        private void CreateCircles()
+        {
+            MainCanvas.Children.Clear();
+            Random random = new Random();
+            // Создание потоков для каждого круга с учетом текущих приоритетов
+            Thread redCircleThread = new Thread(() => CreateCircle(Brushes.Red, random.Next(10,250), 50))
+            {
+                Priority = redPriority
+            };
+            Thread blueCircleThread = new Thread(() => CreateCircle(Brushes.Blue, random.Next(10, 250), 50))
+            {
+                Priority = bluePriority
+            };
+            Thread greenCircleThread = new Thread(() => CreateCircle(Brushes.Green, random.Next(10, 250), 50))
+            {
+                Priority = greenPriority
+            };
+
+            // Запуск потоков
+            redCircleThread.Start();
+            blueCircleThread.Start();
+            greenCircleThread.Start();
+        }
+
+        private void CreateCircle(Brush color, double left, double top)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Ellipse circle = new Ellipse
+                {
+                    Width = 80,
+                    Height = 80,
+                    Fill = color
+                };
+
+                Canvas.SetLeft(circle, left);
+                Canvas.SetTop(circle, top);
+                MainCanvas.Children.Add(circle);
+            });
+        }
+
+        // События изменения приоритета
+        private void RedPriority_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (((ComboBox)sender).SelectedItem is ComboBoxItem selectedItem)
+            {
+                redPriority = (ThreadPriority)Enum.Parse(typeof(ThreadPriority), selectedItem.Tag.ToString());
+                CreateCircles();
+            }
+        }
+
+        private void BluePriority_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (((ComboBox)sender).SelectedItem is ComboBoxItem selectedItem)
+            {
+                bluePriority = (ThreadPriority)Enum.Parse(typeof(ThreadPriority), selectedItem.Tag.ToString());
+                CreateCircles();
+            }
+        }
+
+        private void GreenPriority_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (((ComboBox)sender).SelectedItem is ComboBoxItem selectedItem)
+            {
+                greenPriority = (ThreadPriority)Enum.Parse(typeof(ThreadPriority), selectedItem.Tag.ToString());
+                CreateCircles();
+            }
         }
 
     }
