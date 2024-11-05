@@ -18,9 +18,9 @@ namespace _1l
         int TreeCount=0;
         double TreeSum = 0;
 
-        private ThreadPriority redPriority = ThreadPriority.Highest;
-        private ThreadPriority bluePriority = ThreadPriority.Normal;
-        private ThreadPriority greenPriority = ThreadPriority.Lowest;
+        private ThreadPriority redPriority;
+        private ThreadPriority bluePriority;
+        private ThreadPriority greenPriority;
 
         string Visibility_Matrix = "Visible";
         string Visibility_Tree = "Hidden";
@@ -30,7 +30,7 @@ namespace _1l
         {
             InitializeComponent();
             List<List<double>> matrix;
-            CreateCircles();
+            //CreateCircles();
 
 
             DataContext = this;
@@ -240,26 +240,27 @@ namespace _1l
             MainCanvas.Children.Clear();
             Random random = new Random();
             // Создание потоков для каждого круга с учетом текущих приоритетов
-            Thread redCircleThread = new Thread(() => CreateCircle(Brushes.Red, random.Next(10,250), 50))
+            Thread redCircleThread = new Thread(() => CreateCircle(Brushes.Red,70, 50))
             {
                 Priority = redPriority
             };
-            Thread blueCircleThread = new Thread(() => CreateCircle(Brushes.Blue, random.Next(10, 250), 50))
+            Thread blueCircleThread = new Thread(() => CreateCircle(Brushes.Blue, 120, 50))
             {
                 Priority = bluePriority
             };
-            Thread greenCircleThread = new Thread(() => CreateCircle(Brushes.Green, random.Next(10, 250), 50))
+            Thread greenCircleThread = new Thread(() => CreateCircle(Brushes.Green, 100, 90))
             {
                 Priority = greenPriority
             };
 
             // Запуск потоков
-            redCircleThread.Start();
             blueCircleThread.Start();
+            redCircleThread.Start();
+            
             greenCircleThread.Start();
         }
 
-        private void CreateCircle(Brush color, double left, double top)
+        public void CreateCircle(Brush color, double left, double top)
         {
             Dispatcher.Invoke(() =>
             {
@@ -282,7 +283,7 @@ namespace _1l
             if (((ComboBox)sender).SelectedItem is ComboBoxItem selectedItem)
             {
                 redPriority = (ThreadPriority)Enum.Parse(typeof(ThreadPriority), selectedItem.Tag.ToString());
-                CreateCircles();
+                //CreateCircles();
             }
         }
 
@@ -291,7 +292,7 @@ namespace _1l
             if (((ComboBox)sender).SelectedItem is ComboBoxItem selectedItem)
             {
                 bluePriority = (ThreadPriority)Enum.Parse(typeof(ThreadPriority), selectedItem.Tag.ToString());
-                CreateCircles();
+                //CreateCircles();
             }
         }
 
@@ -300,9 +301,17 @@ namespace _1l
             if (((ComboBox)sender).SelectedItem is ComboBoxItem selectedItem)
             {
                 greenPriority = (ThreadPriority)Enum.Parse(typeof(ThreadPriority), selectedItem.Tag.ToString());
-                CreateCircles();
+                //CreateCircles();
             }
         }
 
+        private void CreateCircle_click(object sender, RoutedEventArgs e)
+        {
+            CreateCircles();
+        }
+        private void ClearCircle_click(object sender, RoutedEventArgs e)
+        {
+            MainCanvas.Children.Clear();
+        }
     }
 }
