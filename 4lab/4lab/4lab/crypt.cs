@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _5lab
+namespace _4lab
 {
-    internal class crypt
+    internal class Сrypt
     {
         // Семафоры для синхронизации потоков
         static Semaphore readSemaphore; 

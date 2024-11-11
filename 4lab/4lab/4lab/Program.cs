@@ -1,5 +1,4 @@
 ﻿using _4lab;
-using _5lab;
 
 internal class Program
 {
@@ -43,7 +42,7 @@ internal class Program
 
         //string str_debug = "AaBbYyCc"
         
-        crypt.EncryptText();//шифровка
-        crypt.DecryptText();//дешифорвка
+        Сrypt.EncryptText();//шифровка
+        Сrypt.DecryptText();//дешифорвка
     }
 }
