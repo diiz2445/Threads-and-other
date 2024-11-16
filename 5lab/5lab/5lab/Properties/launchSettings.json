@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "5lab": {
+      "commandName": "Project"
+    },
+    "Профиль 1": {
+      "commandName": "Executable"
+    }
+  }
+}
