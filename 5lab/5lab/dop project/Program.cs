@@ -141,7 +141,7 @@ internal class Program
                     if (exitEvent.WaitOne(0)) break; // Проверяем выход
 
                     // Пользователь задает размер матрицы
-                    Console.Write("Введите размер матрицы (n x n): ");
+                    Console.Write("Введите размер матрицы: ");
                     int n = int.Parse(Console.ReadLine());
                     int[,] matrix = new int[n, n];
                     Random rand = new Random();
