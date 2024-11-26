@@ -34,6 +34,7 @@ internal class Program
         Console.WriteLine("Вторая программа завершена.");
     }
 
+    
     static void MultiplyLargeNumbers()
     {
         // Специальное событие для задачи умножения больших чисел

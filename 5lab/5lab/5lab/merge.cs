@@ -11,7 +11,7 @@ namespace _5lab
         public static void Run()
         {
             // Пути к исходным файлам с числами и результату
-            string[] filePaths = { "file1.txt", "file2.txt", "file3.txt" }; // Пути к файлам
+            string[] filePaths = { "input1.txt", "input2.txt", "input3.txt" }; // Пути к файлам
             string outputFilePath = "output.txt"; // Путь к результирующему файлу
 
             // Создаем события для синхронизации
@@ -47,7 +47,7 @@ namespace _5lab
             Console.WriteLine("Содержимое исходных файлов:");
             for (int i = 0; i < filePaths.Length; i++)
             {
-                Console.WriteLine($"file{i + 1}.txt:");
+                Console.WriteLine($"{filePaths[i]}:");
                 PrintFileContents(filePaths[i]);
             }
 
@@ -64,7 +64,6 @@ namespace _5lab
                 string? line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    // Преобразуем строку в целое число и сохраняем в массив
                     currentValues[index] = int.Parse(line);
 
                     // Сигнализируем, что данные были прочитаны
@@ -76,10 +75,12 @@ namespace _5lab
 
                 // Помечаем, что все данные из текущего файла были прочитаны
                 endOfFiles[index] = true;
+
                 // Сигнализируем, что завершили чтение файла
                 readEvents[index].Set();
             }
         }
+
 
         // Функция для записи данных в выходной файл в порядке появления
         static void WriteToFile(string outputFilePath, int[] currentValues, bool[] endOfFiles, ManualResetEvent[] readEvents, AutoResetEvent writeEvent)
@@ -87,6 +88,7 @@ namespace _5lab
             using (StreamWriter writer = new StreamWriter(outputFilePath))
             {
                 bool allFilesDone = false;
+
                 while (!allFilesDone)
                 {
                     allFilesDone = true;
@@ -107,9 +109,15 @@ namespace _5lab
                         readEvents[i].Reset();
                         writeEvent.Set();
                     }
+
+                    // Отладочная информация
+                    Console.WriteLine($"All files done: {allFilesDone}");
                 }
+
+                Console.WriteLine("Запись завершена.");
             }
         }
+
 
         // Функция для вывода содержимого файла на консоль
         static void PrintFileContents(string filePath)

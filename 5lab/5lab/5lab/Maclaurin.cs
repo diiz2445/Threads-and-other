@@ -12,15 +12,15 @@ namespace _5lab
         static ManualResetEvent factorialCalculatedEvent = new ManualResetEvent(false);
         static ManualResetEvent powerCalculatedEvent = new ManualResetEvent(false);
 
-        // Переменные для хранения результатов вычислений
+        //хранение результатов вычислений
         static double factorialResult;
         static double powerResult;
 
         public static void Run()
-        {
-            // Запрашиваем значение x и количество членов ряда
-            Console.WriteLine("Вычисление e^x с использованием ряда Маклорена.");
-            Console.Write("Введите значение x: ");
+        { 
+            // получаем значение x и количество членов ряда
+            Console.WriteLine("Вычисление e^x с рядом Маклорена.");
+            Console.Write("Введите x: ");
             double x = Convert.ToDouble(Console.ReadLine());
             Console.Write("Введите количество членов ряда: ");
             int numTerms = Convert.ToInt32(Console.ReadLine());
